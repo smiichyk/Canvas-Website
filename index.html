@@ -14,15 +14,50 @@
 
   <main>
     <div id="ns_options">
-      <button onclick="brightness()"><img src="img/buttons/brightness.png" width="512" alt="brightness_button"/></button>
-      <button onclick="grayscale()"><img src="img/buttons/grayscale.png" width="512" alt="grayscale_button"/></button>
-      <button onclick="sepia()"><img src="img/buttons/sepia.png" width="488" alt="sepia_button"/></button>
-      <button onclick="invert()"><img src="img/buttons/invert.png" width="512" alt="invert_button"/></button>
-      <button onclick="posterise()"><img src="img/buttons/posterise.png" width="69" alt="posterise_button"/></button>
-      <button onclick="threshold()"><img src="img/buttons/threshold.png" width="456" alt="threshold_button"/></button>
+      <div class="ns_option">
+        <div>
+          <button onclick="brightness()"><img src="img/buttons/brightness.png" width="512" alt="brightness_button"/></button>
+          <h1>brightness</h1>
+        </div>
+        <div id="ns_brightness_slider" class="ns_slider"></div>
+      </div>
+      <div class="ns_option">
+        <div>
+          <button onclick="grayscale()"><img src="img/buttons/grayscale.png" width="512" alt="grayscale_button"/></button>
+          <h1>grayscale</h1>
+        </div>
+        <div id="ns_grayscale_slider" class="ns_slider"></div>
+      </div>
+      <div class="ns_option">
+        <div>
+          <button onclick="sepia()"><img src="img/buttons/sepia.png" width="488" alt="sepia_button"/></button>
+          <h1>sepia</h1>
+        </div>
+        <div id="ns_sepia_slider" class="ns_slider"></div>
+      </div>
+      <div class="ns_option">
+        <div>
+          <button onclick="invert()"><img src="img/buttons/invert.png" width="512" alt="invert_button"/></button>
+          <h1>invert</h1>
+        </div>
+        <div id="ns_invert_slider" class="ns_slider"></div>
+      </div>
+      <div class="ns_option">
+        <div>
+          <button onclick="posterise()"><img src="img/buttons/posterise.png" width="69" alt="posterise_button"/></button>
+          <h1>posterise</h1>
+        </div>
+        <div id="ns_posterise_slider" class="ns_slider"></div>
+      </div>
+      <div class="ns_option">
+        <div>
+          <button onclick="threshold()"><img src="img/buttons/threshold.png" width="456" alt="threshold_button"/></button>
+          <h1>threshold</h1>
+        </div>
+        <div id="ns_threshold_slider" class="ns_slider"></div>
+      </div>
     </div>
     <canvas id = "ns_canvas">Your browser does not support the HTML5 'Canvas' tag.</canvas>
-    <div id="ns_controls"></div>
   </main>
 
 </body>

@@ -17,10 +17,14 @@ main {
 
 #ns_options {
   margin: 0; padding: 0;
-  width: 5vw;
+  width: 20vw;
   background: rgb(65, 65, 65);
   display: flex;
   flex-direction: column;
+
+  .ns_option {
+    margin-left: 10px;
+  }
 }
 
 #ns_canvas {
@@ -31,16 +35,7 @@ main {
   background: rgb(30, 30, 30);
 }
 
-#ns_controls {
-  margin: 0; padding: 0;
-  width: 20vw;
-  background: rgb(65, 65, 65);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-main, #ns_options, #ns_controls {
+main, #ns_options{
   border-radius: 5px;
 }
 
@@ -62,4 +57,6 @@ h1 {
   font-variation-settings:
     "wdth" 100;
   color: white;
+  font-size: 20px;
+  display: none;
 }
