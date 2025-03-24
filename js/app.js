@@ -1,14 +1,11 @@
 
 // Variables for working with the canvas
-let canvas = null // HTML <canvas> element
-let ctx = null // 2D drawing context
-let filters = {} // Object to store active filters
+let canvas = null   // HTML <canvas> element
+let ctx = null      // 2D drawing context
+let filters = {}     // Object to store active filters
 
 // Variables for slider div elements
-let brightnessDiv
-let grayscaleDiv
-let sepiaDiv
-let invertDiv
+let brightnessDiv, grayscaleDiv, sepiaDiv, invertDiv
 
 // Variables to store filter values (default settings)
 let brightnessPercent = 100
@@ -16,47 +13,71 @@ let grayscalePercent = 0
 let sepiaPercent = 0
 let invertPercent = 0
 
+// Variables for dragging
+let imgPositionX = 0, imgPositionY = 0
+let isDragging = false
+let startX, startY
+
 // Create an image object and load the picture
 let img = new Image()
-img.src = "img/kitten.jpg"
 
 // Run the onAllAssetsLoaded function after the page loads
 window.onload = onAllAssetsLoaded
 
 function onAllAssetsLoaded() {
-  // Get the <canvas> element
+  // Get the <canvas> element and assign the drawing context (2D)
   canvas = document.getElementById('ns_canvas')
-
-  // Assign the drawing context (2D) to the canvas
   ctx = canvas.getContext('2d')
 
   // Set the canvas width and height to match the element's dimensions
-  canvas.width = canvas.clientWidth
-  canvas.height = canvas.clientHeight
+  setCanvasWidthAndHeight()
 
   // Initialize slider div references
   initializeSlidersDiv()
 
-  // Render the initial image on the canvas
-  renderCanvas()
+  // Handle image loading
+  img.onload = () => {
+    setImagePosition()
+    drawImage()
+  }
+
+  // Set image source
+  img.src = "img/kitten.jpg";
+
+  // Add event listeners for dragging
+  addEventListeners()
 }
 
-function renderCanvas() {
-  displayImage()
+function drawImage() {
+  // Clear the canvas before redrawing and save the current canvas state
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  ctx.save()
+
+  // Apply transformations
+  ctx.setTransform(1, 0, 0, 1, imgPositionX, imgPositionY)
+
+  // Apply active filters
+  ctx.filter = Object.values(filters).join(' ')
+
+  // Draw the image at its current position
+  ctx.drawImage(img, 0, 0)
+
+  // Restore the previous canvas state
+  ctx.restore()
 }
 
 function brightness(percentage=brightnessPercent) {
   // Update brightness value
   brightnessPercent = percentage
 
-  // Hide all sliders and show brightness slider
-  slidersDisplayNone()
+  // Show brightness slider
   brightnessDiv.style.display = 'flex'
 
   // Update the brightness slider UI
   document.getElementById("ns_brightness_slider").innerHTML = `
     <input type="range" min="10" max="250" value="${brightnessPercent}" onclick="brightness(this.value)">
-    <p>${brightnessPercent}</p>`
+    <p>${brightnessPercent}</p>
+    <img onclick="event.stopPropagation(); slidersDisplayNone()" src="img/buttons/add_minus/hide.png" width="6" height="6"/>`
   ctx.filter = `brightness(${brightnessPercent}%)`
 
   // Apply filter and update the canvas
@@ -67,14 +88,14 @@ function grayscale(percentage=grayscalePercent) {
   // Update grayscale value
   grayscalePercent = percentage
 
-  // Hide all sliders and show grayscale slider
-  slidersDisplayNone()
+  // Show grayscale slider
   grayscaleDiv.style.display = 'flex'
 
   // Update the grayscale slider UI
   document.getElementById("ns_grayscale_slider").innerHTML = `
     <input type="range" min="0" max="100" value="${grayscalePercent}" onclick="grayscale(this.value)">
-    <p>${grayscalePercent}</p>`
+    <p>${grayscalePercent}</p>
+    <img onclick="event.stopPropagation(); slidersDisplayNone()" src="img/buttons/add_minus/hide.png" width="10" height="10"/>`
   ctx.filter = `grayscale(${grayscalePercent}%)`
 
   // Apply filter and update the canvas
@@ -85,14 +106,14 @@ function sepia(percentage=sepiaPercent) {
   // Update sepia value
   sepiaPercent = percentage
 
-  // Hide all sliders and show sepia slider
-  slidersDisplayNone()
+  // Show sepia slider
   sepiaDiv.style.display = 'flex'
 
   // Update the sepia slider UI
   document.getElementById("ns_sepia_slider").innerHTML = `
     <input type="range" min="0" max="100" value="${sepiaPercent}" onclick="sepia(this.value)">
-    <p>${sepiaPercent}</p>`
+    <p>${sepiaPercent}</p>
+    <img onclick="event.stopPropagation(); slidersDisplayNone()" src="img/buttons/add_minus/hide.png" width="10" height="10"/>`
   ctx.filter = `sepia(${sepiaPercent}%)`
 
   // Apply filter and update the canvas
@@ -103,46 +124,26 @@ function invert(percentage=invertPercent) {
   // Update invert value
   invertPercent = percentage
 
-  // Hide all sliders and show invert slider
-  slidersDisplayNone()
+  // Show invert slider
   invertDiv.style.display = 'flex'
 
   // Update the invert slider UI
   document.getElementById("ns_invert_slider").innerHTML = `
     <input type="range" min="0" max="100" value="${invertPercent}" onclick="invert(this.value)">
-    <p>${invertPercent}</p>`
+    <p>${invertPercent}</p>
+    <img onclick="event.stopPropagation(); slidersDisplayNone()" src="img/buttons/add_minus/hide.png" width="10" height="10"/>`
   ctx.filter = `invert(${invertPercent}%)`
 
   // Apply filter and update the canvas
   setFilter('invert', invertPercent, '%');
 }
 
-function posterise() {
-
-}
-
-function threshold() {
-
-}
-
 function setFilter(type, value, unit) {
   // Store the filter in the object
   filters[type] = `${type}(${value}${unit})`
 
-  // Apply all active filters
-  updateFilters()
-}
-
-function updateFilters() {
-  // Combine all filters
-  ctx.filter = Object.values(filters).join(' ')
-
-  // Redraw the image with filters
-  displayImage()
-}
-
-function displayImage() {
-  return ctx.drawImage(img, 100, 150)
+  // Draw image with all active filters
+  drawImage()
 }
 
 function slidersDisplayNone() {
@@ -157,4 +158,58 @@ function initializeSlidersDiv() {
   grayscaleDiv = document.getElementById("ns_grayscale_slider")
   sepiaDiv = document.getElementById("ns_sepia_slider")
   invertDiv = document.getElementById("ns_invert_slider")
+}
+
+function setCanvasWidthAndHeight() {
+  canvas.width = canvas.clientWidth
+  canvas.height = canvas.clientHeight
+}
+
+function setImagePosition() {
+  // Center the image in the canvas
+  imgPositionX= (canvas.width - img.width) / 2
+  imgPositionY = (canvas.height - img.height) / 2
+}
+
+function limitImagePosition() {
+  let margin = 0.4
+  let marginX = canvas.width * margin
+  let marginY = canvas.height * margin
+
+  let minX = Math.min(-marginX, canvas.width - img.width + marginX)
+  let maxX = Math.max(-marginX, canvas.width - img.width + marginX)
+  let minY = Math.min(-marginY, canvas.height - img.height + marginY)
+  let maxY = Math.max(-marginY, canvas.height - img.height + marginY)
+
+  imgPositionX = Math.max(minX, Math.min(imgPositionX, maxX))
+  imgPositionY = Math.max(minY, Math.min(imgPositionY, maxY))
+}
+
+function addEventListeners() {
+  canvas.addEventListener("mousedown", startDragging)
+  canvas.addEventListener("mousemove", dragImage)
+  canvas.addEventListener("mouseup", stopDragging)
+  canvas.addEventListener("mouseleave", stopDragging)
+}
+
+function startDragging(event) {
+  isDragging = true
+  startX = event.clientX - imgPositionX
+  startY = event.clientY - imgPositionY
+  canvas.style.cursor = "grabbing"
+}
+
+function dragImage(event) {
+  // Move the image while dragging
+  if (isDragging) {
+    imgPositionX = event.clientX - startX
+    imgPositionY = event.clientY - startY
+    limitImagePosition()
+    drawImage()
+  }
+}
+
+function stopDragging() {
+  isDragging = false
+  canvas.style.cursor = "grab"
 }
