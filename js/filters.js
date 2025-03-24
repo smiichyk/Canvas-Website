@@ -1,4 +1,10 @@
 
+// Variables for slider div elements
+let brightnessDiv, grayscaleDiv, sepiaDiv, invertDiv
+
+// Object to store active filters
+let filters = {}
+
 // Variables to store filter values (default settings)
 let brightnessPercent = 100
 let grayscalePercent = 0
@@ -13,7 +19,7 @@ function brightness(percentage=brightnessPercent) {
   brightnessDiv.style.display = 'flex'
 
   // Update the brightness slider UI
-  document.getElementById("ns_brightnessSlider").innerHTML = `
+  brightnessDiv.innerHTML = `
     <img onclick="brightness(brightnessPercent-1)" src="img/buttons/add_minus/minus.png" height="5" width="5"/>
     <input type="range" min="10" max="250" value="${brightnessPercent}" onclick="brightness(parseInt(this.value))">
     <p>${brightnessPercent-100}</p>
@@ -34,7 +40,7 @@ function grayscale(percentage=grayscalePercent) {
   grayscaleDiv.style.display = 'flex'
 
   // Update the grayscale slider UI
-  document.getElementById("ns_grayscaleSlider").innerHTML = `
+  grayscaleDiv.innerHTML = `
     <img onclick="grayscale(grayscalePercent-1)" src="img/buttons/add_minus/minus.png" height="5" width="5"/>
     <input type="range" min="0" max="100" value="${grayscalePercent}" onclick="grayscale(parseInt(this.value))">
     <p>${grayscalePercent}</p>
@@ -55,7 +61,7 @@ function sepia(percentage=sepiaPercent) {
   sepiaDiv.style.display = 'flex'
 
   // Update the sepia slider UI
-  document.getElementById("ns_sepiaSlider").innerHTML = `
+  sepiaDiv.innerHTML = `
     <img onclick="sepia(sepiaPercent-1)" src="img/buttons/add_minus/minus.png" height="5" width="5"/>
     <input type="range" min="0" max="100" value="${sepiaPercent}" onclick="sepia(parseInt(this.value))">
     <p>${sepiaPercent}</p>
@@ -76,7 +82,7 @@ function invert(percentage=invertPercent) {
   invertDiv.style.display = 'flex'
 
   // Update the invert slider UI
-  document.getElementById("ns_invertSlider").innerHTML = `
+  invertDiv.innerHTML = `
     <img onclick="invert(invertPercent-1)" src="img/buttons/add_minus/minus.png" height="5" width="5"/>
     <input type="range" min="0" max="100" value="${invertPercent}" onclick="invert(parseInt(this.value))">
     <p>${invertPercent}</p>
@@ -87,4 +93,12 @@ function invert(percentage=invertPercent) {
 
   // Apply filter and update the canvas
   setFilter('invert', invertPercent, '%');
+}
+
+function setFilter(type, value, unit) {
+  // Store the filter in the object
+  filters[type] = `${type}(${value}${unit})`
+
+  // Draw image with all active filters
+  drawImage()
 }

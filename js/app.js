@@ -2,10 +2,6 @@
 // Variables for working with the canvas
 let canvas = null   // HTML <canvas> element
 let ctx = null      // 2D drawing context
-let filters = {}     // Object to store active filters
-
-// Variables for slider div elements
-let brightnessDiv, grayscaleDiv, sepiaDiv, invertDiv
 
 // Create an image object and load the picture
 let img = new Image()
@@ -55,12 +51,18 @@ function drawImage() {
   ctx.restore()
 }
 
-function setFilter(type, value, unit) {
-  // Store the filter in the object
-  filters[type] = `${type}(${value}${unit})`
+function setCanvasWidthAndHeight() {
+  canvas.width = canvas.clientWidth
+  canvas.height = canvas.clientHeight
+}
 
-  // Draw image with all active filters
-  drawImage()
+// Work with sliders:
+
+function initializeSlidersDiv() {
+  brightnessDiv = document.getElementById("ns_brightnessSlider")
+  grayscaleDiv = document.getElementById("ns_grayscaleSlider")
+  sepiaDiv = document.getElementById("ns_sepiaSlider")
+  invertDiv = document.getElementById("ns_invertSlider")
 }
 
 function allSlidersToDefault() {
@@ -85,16 +87,4 @@ function slidersDisplayNone(divName) {
     sepiaDiv.style.display = "none"
     invertDiv.style.display = "none"
   }
-}
-
-function initializeSlidersDiv() {
-  brightnessDiv = document.getElementById("ns_brightnessSlider")
-  grayscaleDiv = document.getElementById("ns_grayscaleSlider")
-  sepiaDiv = document.getElementById("ns_sepiaSlider")
-  invertDiv = document.getElementById("ns_invertSlider")
-}
-
-function setCanvasWidthAndHeight() {
-  canvas.width = canvas.clientWidth
-  canvas.height = canvas.clientHeight
 }
