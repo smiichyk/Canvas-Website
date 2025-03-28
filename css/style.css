@@ -20,28 +20,36 @@ header {
   p {
     margin: 0; padding: 5px 20px;
 
-    font-family: "Roboto", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 350;
-    font-style: normal;
-    font-variation-settings: "wdth" 100;
-    color: #9e9e9e;
-    font-size: 16px;
-
     border-right: 1px solid rgb(30, 30, 30);
     cursor: pointer;
+  }
+
+  p:hover {
+    background: #2d2c2c;
+  }
+
+  .ns_addImage {
+    display: none;
+    background: #c2c2c2;
+    align-items: center
+  }
+
+  #ns_addImageButton{
+    background: #654444;
   }
 }
 
 main {
   display: flex;
-  background: rgb(65, 65, 65);
+  height: 750px;
   border: 2px solid rgb(30, 30, 30);
+  background: rgb(30, 30, 30);
 }
 
 #ns_options {
   margin: 0; padding: 0;
   width: 20vw;
+  height: 750px;
   background: rgb(65, 65, 65);
   display: flex;
   flex-direction: column;
@@ -50,21 +58,35 @@ main {
     padding: 0 10px 0 0; margin: 0;
     align-items: center;
     border: none;
+
+    p {
+      margin: 0; padding: 0;
+    }
+  }
+
+  button:hover {
+    background: #3e3e3e;
+
+    .ns_mainControlButton {
+      background: #484747;
+    }
   }
 
   input[type=range] {
     width: 60%;
     appearance: none;
-    height: 3px;
+    height: 4px;
     background: #d5d5d5;
     border-radius: 5px;
     outline: none;
+    cursor: pointer;
   }
 
   input[type=range]::-webkit-slider-thumb {
     appearance: none;
-    width: 4px;
-    height: 4px;
+    width: 5px;
+    height: 5px;
+    border-radius: 30%;
     background: #272727;
     cursor: pointer;
   }
@@ -85,8 +107,9 @@ main {
   }
 
   .ns_mainControlButton {
-    padding: 12px; margin: 0;
+    padding: 15px; margin: 0;
     border-right: 1px solid rgb(30, 30, 30);
+    background: #4e4e4e;
   }
 
   .ns_hideButton {
@@ -94,11 +117,37 @@ main {
   }
 }
 
+#ns_imageNameList {
+  margin: 0; padding: 0;
+  width: 75vw;
+  height: 30px;
+  background: rgb(41, 41, 41);
+  display: flex;
+  align-content: center
+}
+
+#ns_imageName {
+  margin: 0; padding: 0;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid rgb(30, 30, 30);
+  background: rgb(30, 30, 30);
+
+  p {
+    margin: 0; padding: 0 10px 0 10px;
+    color: #989898;
+  }
+
+  img {
+    margin: 0; padding: 0 5px 0 0;
+  }
+}
+
 #ns_canvas {
   margin: 0; padding: 0;
   border: none;
   width: 75vw;
-  height: 50vw;
+  height: 720px;
   background: rgb(30, 30, 30);
   cursor: grab;
   overflow: hidden;
@@ -112,4 +161,14 @@ button {
   background: none;
   border: none;
   cursor: pointer;
+}
+
+p {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 350;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+  color: #9e9e9e;
+  font-size: 16px;
 }

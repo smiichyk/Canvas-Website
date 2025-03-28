@@ -1,6 +1,6 @@
 
 // Variables for slider div elements
-let brightnessDiv, grayscaleDiv, sepiaDiv, invertDiv
+let brightnessDiv, grayscaleDiv, sepiaDiv, invertDiv, textDiv
 
 // Object to store active filters
 let filters = {}
@@ -12,6 +12,9 @@ let sepiaPercent = 0
 let invertPercent = 0
 
 function brightness(percentage=brightnessPercent) {
+
+  brightnessDiv.style.cursor = 'default'
+
   // Update brightness value
   brightnessPercent = percentage
 
@@ -33,6 +36,9 @@ function brightness(percentage=brightnessPercent) {
 }
 
 function grayscale(percentage=grayscalePercent) {
+
+  grayscaleDiv.style.cursor = 'default'
+
   // Update grayscale value
   grayscalePercent = percentage
 
@@ -54,6 +60,9 @@ function grayscale(percentage=grayscalePercent) {
 }
 
 function sepia(percentage=sepiaPercent) {
+
+  sepiaDiv.style.cursor = 'default'
+
   // Update sepia value
   sepiaPercent = percentage
 
@@ -75,6 +84,8 @@ function sepia(percentage=sepiaPercent) {
 }
 
 function invert(percentage=invertPercent) {
+  invertDiv.style.cursor = 'default'
+
   // Update invert value
   invertPercent = percentage
 
@@ -93,6 +104,14 @@ function invert(percentage=invertPercent) {
 
   // Apply filter and update the canvas
   setFilter('invert', invertPercent, '%');
+}
+
+function text() {
+  // Update the text div
+  textDiv.innerHTML = `
+
+  `
+
 }
 
 function setFilter(type, value, unit) {

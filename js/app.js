@@ -3,9 +3,6 @@
 let canvas = null   // HTML <canvas> element
 let ctx = null      // 2D drawing context
 
-// Create an image object and load the picture
-let img = new Image()
-
 // Run the onAllAssetsLoaded function after the page loads
 window.onload = onAllAssetsLoaded
 
@@ -18,7 +15,7 @@ function onAllAssetsLoaded() {
   setCanvasWidthAndHeight()
 
   // Initialize slider div references
-  initializeSlidersDiv()
+  initializeDiv()
 
   // Handle image loading
   img.onload = () => {
@@ -34,6 +31,8 @@ function onAllAssetsLoaded() {
 }
 
 function drawImage() {
+  displayImageName()
+
   // Clear the canvas before redrawing and save the current canvas state
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   ctx.save()
@@ -58,11 +57,12 @@ function setCanvasWidthAndHeight() {
 
 // Work with sliders:
 
-function initializeSlidersDiv() {
+function initializeDiv() {
   brightnessDiv = document.getElementById("ns_brightnessSlider")
   grayscaleDiv = document.getElementById("ns_grayscaleSlider")
   sepiaDiv = document.getElementById("ns_sepiaSlider")
   invertDiv = document.getElementById("ns_invertSlider")
+  textDiv = document.getElementById("ns_textSlider")
 }
 
 function allSlidersToDefault() {
