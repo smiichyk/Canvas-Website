@@ -26,7 +26,7 @@ function limitImagePosition() {
 
 function addEventListeners() {
   canvas.addEventListener("mousedown", startDragging)
-  canvas.addEventListener("mousemove", dragImage)
+  canvas.addEventListener("mousemove", OS_dragImage)
   canvas.addEventListener("mouseup", stopDragging)
   canvas.addEventListener("mouseleave", stopDragging)
 }
@@ -38,7 +38,7 @@ function startDragging(event) {
   canvas.style.cursor = "grabbing"
 }
 
-function dragImage(event) {
+function OS_dragImage(event) {
   // Move the image while dragging
   if (isDragging) {
     imgPositionX = event.clientX - startX
