@@ -24,6 +24,7 @@ function saveImage() {
 }
 
 function deleteImage() {
+
   if (imgName!=="") {
     if (confirm("Are you sure you want to delete the image?")) {
       document.getElementById('ns_canvas').style.background = 'rgb(41, 41, 41)'

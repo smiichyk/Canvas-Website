@@ -13,8 +13,6 @@ let invertPercent = 0
 
 function brightness(percentage=brightnessPercent) {
 
-  brightnessDiv.style.cursor = 'default'
-
   // Update brightness value
   if (brightnessPercent <= 250 && brightnessPercent >= 10) {
     brightnessPercent = percentage
@@ -44,8 +42,6 @@ function brightness(percentage=brightnessPercent) {
 }
 
 function grayscale(percentage=grayscalePercent) {
-
-  grayscaleDiv.style.cursor = 'default'
 
   // Update grayscale value
   if (grayscalePercent <= 100 && grayscalePercent >= 0) {
@@ -77,8 +73,6 @@ function grayscale(percentage=grayscalePercent) {
 
 function sepia(percentage=sepiaPercent) {
 
-  sepiaDiv.style.cursor = 'default'
-
   // Update sepia value
   if (sepiaPercent <= 100 && sepiaPercent >= 0) {
     sepiaPercent = percentage
@@ -108,7 +102,6 @@ function sepia(percentage=sepiaPercent) {
 }
 
 function invert(percentage=invertPercent) {
-  invertDiv.style.cursor = 'default'
 
   // Update invert value
   if (invertPercent <= 100 && invertPercent >= 0) {
