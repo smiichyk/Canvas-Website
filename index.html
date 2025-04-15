@@ -1,6 +1,5 @@
 <!doctype html>
-<html>
-
+<html lang="en">
 <head>
   <title>Canvas</title>
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
@@ -12,48 +11,64 @@
   <script src="js/filters.js"></script>
   <script src="js/imageControl.js"></script>
   <script src="js/editorMouseEvents.js"></script>
+  <script src="js/textControl.js"></script>
 </head>
 
 <body>
-
   <header>
     <p onclick="addImageDisplay()">Add image</p>
     <label for="ns_newImageURL"></label><input type="text" placeholder="Image URL" class="ns_addImage" id="ns_newImageURL"/>
-    <button class="ns_addImage" id="ns_addImageButton">Add</button>
-    <p>Delete image</p>
-    <p>Save image</p>
+    <button class="ns_addImage" id="ns_addImageButton"
+            onclick="addImage(document.getElementById('ns_newImageURL').value);
+            document.getElementById('ns_newImageURL').value = ''">Add</button>
+    <p onclick="saveImage()">Save image</p>
     <p onclick="slidersDisplayNone()">Hide all sliders</p>
-    <p>Default sliders</p>
+    <p onclick="setToDefaultImageEffectValues()">Default image</p>
   </header>
-
   <main>
-
     <div id = "ns_controls">
-
-      <button onclick="displayRotation()">
+      <div onclick="displayRotation()" class="ns_filter">
         <img src="img/buttons/rotation.png" width="512" alt="rotation_button" class="ns_addFilterButton"/>
         <div id="ns_rotationSlider" class="ns_slider"></div>
-      </button>
-
-      <button onclick="displayBrightness()">
+      </div>
+      <div onclick="displayBrightness()" class="ns_filter">
         <img src="img/buttons/brightness.png" width="512" alt="brightness_button" class="ns_addFilterButton"/>
         <div id="ns_brightnessSlider" class="ns_slider"></div>
-      </button>
-
-      <button onclick="displayGreyscale()">
+      </div>
+      <div onclick="displayGreyscale()" class="ns_filter">
         <img src="img/buttons/grayscale.png" width="512" alt="greyscale_button" class="ns_addFilterButton"/>
         <div id="ns_grayscaleSlider" class="ns_slider"></div>
-      </button>
-
+      </div>
+      <div onclick="displaySepia()" class="ns_filter">
+        <img src="img/buttons/sepia.png" width="488" alt="sepia_button" class="ns_addFilterButton"/>
+        <div id="ns_sepiaSlider" class="ns_slider"></div>
+      </div>
+      <div onclick="displayInvert()" class="ns_filter">
+        <img src="img/buttons/invert.png" width="512" alt="invert_button" class="ns_addFilterButton"/>
+        <div id="ns_invertSlider" class="ns_slider"></div>
+      </div>
+      <div onclick="displayPosterise()" class="ns_filter">
+        <img src="img/buttons/posterise.png" width="69" alt="posterise_button" class="ns_addFilterButton"/>
+        <div id="ns_posteriseSlider" class="ns_slider"></div>
+      </div>
+      <div onclick="displayThreshold()" class="ns_filter">
+        <img src="img/buttons/threshold.png" width="456" alt="threshold_button" class="ns_addFilterButton"/>
+        <div id="ns_thresholdSlider" class="ns_slider"></div>
+      </div>
+      <div onclick="displayRGBHue()" class="ns_filter">
+        <img src="img/buttons/rgb.png" width="468" alt="rgb_button" class="ns_addFilterButton" id="ns_rgb_icon"/>
+        <div id="ns_rgbHueSlider" class="ns_slider"></div>
+      </div>
+      <div onclick="displayTextControls()" class="ns_filter">
+        <img src="img/buttons/text.png" width="512" alt="text_button" class="ns_addFilterButton" id="ns_text_icon"/>
+        <div id="ns_textControls" class="ns_slider"></div>
+      </div>
     </div>
-
     <div>
       <div id="ns_imageNameList"></div>
       <canvas id ="ns_canvas">Your browser does not support the HTML5 'Canvas' tag.</canvas>
     </div>
-
   </main>
-
 </body>
 
 </html>
